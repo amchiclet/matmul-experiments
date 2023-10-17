@@ -1,0 +1,5 @@
+cmake_minimum_required(VERSION 3.21)
+project(matmul_mkl)
+add_executable(wrapper core.c wrapper.c main.c measure.c)
+target_compile_options(wrapper PRIVATE -std=c99)
+target_link_libraries(wrapper mkl_intel_lp64 mkl_sequential mkl_core pthread m dl)
