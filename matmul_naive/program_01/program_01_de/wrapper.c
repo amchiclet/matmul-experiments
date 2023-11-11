@@ -78,10 +78,17 @@ void measure(int n_iterations, int inputs[16]) {
   printf("inputs are M(%d) N(%d) K(%d)\n", M, N, K);
   measure_init_();
   measure_start_();
-
+  clock_t start = clock();
   for (int i = 0; i < n_iterations; ++i) {
     core((double(*)[M][K])(A_ptr), (double(*)[K][N])(B_ptr), (double(*)[M][N])(C_ptr));
   }
+  clock_t end = clock();
+  int cpu_time_ns = ((double)(end - start)) / CLOCKS_PER_SEC * 1e9;
+  FILE *f;
+  f = fopen("codelet_info.txt", "w");
+  fprintf(f, "# n_iterations M N K cpu_time_ns\n");
+  fprintf(f, "%d %d %d %d %d\n", n_iterations, M, N, K, cpu_time_ns);
+  fclose(f);
 
   measure_stop_();
 }
