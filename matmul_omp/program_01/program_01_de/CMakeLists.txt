@@ -1,0 +1,5 @@
+cmake_minimum_required(VERSION 3.16)
+project(matmul_omp)
+add_executable(wrapper_omp core.c wrapper.c main.c measure.c)
+target_compile_options(wrapper_omp PRIVATE -std=c99 -fopenmp)
+target_link_options(wrapper_omp PRIVATE -fopenmp)
