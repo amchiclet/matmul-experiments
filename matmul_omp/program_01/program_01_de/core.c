@@ -13,10 +13,10 @@ extern int M;
 extern int N;
 
 int core(double (*restrict A)[M][K], double (*restrict B)[K][N], double (*restrict C)[M][N]) {
-double sum;
-sum = 0.0;
-#pragma omp parallel for reduction(+:sum)
+
+#pragma omp parallel for private(i, j, k)
   for (int i = 0; i <= M - 1; i += 1) {
+    double sum = 0.0;
     for (int j = 0; j <= N - 1; j += 1) {
       sum = 0;
       for (int k = 0; k <= K - 1; k += 1) {
