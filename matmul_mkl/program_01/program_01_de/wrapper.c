@@ -7,6 +7,7 @@
 #include <limits.h>
 #include <math.h>
 #include <string.h>
+#include <inttypes.h>
 #include "mkl.h"
 
 int K;
@@ -82,11 +83,11 @@ void measure(int n_iterations, int inputs[16]) {
   clock_t start = clock();
   core(A_ptr, B_ptr, C_ptr, n_iterations);
   clock_t end = clock();
-  int cpu_time_ns = ((double)(end - start)) / CLOCKS_PER_SEC * 1e9;
+  uint64_t cpu_time_ns = ((double)(end - start)) / CLOCKS_PER_SEC * 1e9;
   FILE *f;
   f = fopen("codelet_info.txt", "w");
   fprintf(f, "# n_iterations M N K cpu_time_ns\n");
-  fprintf(f, "%d %d %d %d %d\n", n_iterations, M, N, K, cpu_time_ns);
+  fprintf(f, "%d %d %d %d %" PRIu64 "\n", n_iterations, M, N, K, cpu_time_ns);
   fclose(f);
 
   measure_stop_();
