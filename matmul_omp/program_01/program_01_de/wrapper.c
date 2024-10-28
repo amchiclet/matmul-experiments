@@ -8,6 +8,7 @@
 #include <math.h>
 #include <string.h>
 #include <inttypes.h>
+#include <unistd.h>
 
 int K;
 int M;
@@ -86,6 +87,9 @@ void measure(int n_iterations, int inputs[16]) {
   clock_t end = clock();
 
   uint64_t cpu_time_ns = ((double)(end - start)) / CLOCKS_PER_SEC * 1e9;
+
+  char filename[64];
+  snprintf(filename, 64, "codelet_info_%ld.txt", (long)getpid());
   FILE *f;
   f = fopen("codelet_info.txt", "w");
   fprintf(f, "# n_iterations M N K cpu_time_ns\n");
