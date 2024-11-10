@@ -89,7 +89,7 @@ void measure(int n_iterations, int inputs[16]) {
   char filename[64];
   snprintf(filename, 64, "codelet_info_%ld.txt", (long)getpid());
   FILE *f;
-  f = fopen("codelet_info.txt", "w");
+  f = fopen(filename, "w");
   fprintf(f, "# n_iterations M N K cpu_time_ns\n");
   fprintf(f, "%d %d %d %d %" PRIu64 "\n", n_iterations, M, N, K, cpu_time_ns);
   fclose(f);
